@@ -9,6 +9,15 @@ Follow them before making Roblox Studio, Rojo, or Luau changes.
 - Build features so they can survive production: secure server authority, clear module boundaries, typed Luau, repeatable local checks, and no hidden Studio-only state.
 - Prefer small, shippable changes that can be tested in Studio through Rojo.
 
+## Agent Operating Contract
+
+- Keep instructions and changes concrete, repo-local, and verifiable. Prefer exact commands, file paths, object names, and test steps over broad quality slogans.
+- If a request is broad, first reduce it to the smallest playable vertical slice that proves the core loop. Do not build a wide, shallow scaffold and present it as a finished game.
+- Before coding user-visible gameplay, name the intended player loop: goal, controls, feedback, win/fail condition, and reward. Let that loop drive architecture, not the other way around.
+- Call out placeholders honestly. If custom meshes, textures, animations, audio, icons, or map art require uploaded Roblox assets that are not present, create clean asset slots or Rojo placeholders and say what remains.
+- Do not claim a feature is fun, polished, production-ready, or fully custom unless it has been tested at that bar.
+- Keep `AGENTS.md` maintainable. Add rules only when they are durable for this repo, prevent repeated mistakes, or encode a command/check future agents should actually run.
+
 ## Start Every Task
 
 - Read `README.md`, this file, and any relevant docs in `docs/`.
@@ -100,6 +109,15 @@ Follow them before making Roblox Studio, Rojo, or Luau changes.
 - UI should observe replicated state or server responses; it should not be the source of gameplay truth.
 - Clean up UI connections on close/destroy and when the local player respawns.
 
+## Gameplay Quality Bar
+
+- Gameplay changes should be playable before they are expansive. For a dungeon, combat, shop, base, or progression request, prefer one strong room/loop with good feel over many unfinished systems.
+- Combat needs moment-to-moment feedback: clear range/targeting, hit confirmation, health state, cooldown state, failure state, and visible reward feedback.
+- Movement, interaction, and UI controls must be discoverable in-game without relying on final-answer instructions.
+- Important spaces such as lobbies, first rooms, shops, bases, doors, and rewards should have stable names and source-backed structure. Use procedural generation only when it serves the design.
+- Runtime-generated models are acceptable for prototypes, but source-backed model files or documented asset workflows are expected for important shipped content.
+- When touching gameplay, UI, remotes, Workspace, tools, character lifecycle, or player state, verify in Roblox Studio through Rojo, inspect Output for errors, and exercise the main player flow. A server/client ready print alone is not enough.
+
 ## Tooling
 
 - Install pinned tools with `aftman install --no-trust-check`.
@@ -116,9 +134,11 @@ Follow them before making Roblox Studio, Rojo, or Luau changes.
 
 - The change is mirrored in source files and survives a Rojo rebuild.
 - `stylua --check src`, `selene src`, `rojo sourcemap`, and `rojo build` pass, or any skipped check is explained.
-- Studio runtime behavior has been checked when the change touches gameplay, remotes, UI, Workspace, or player lifecycle.
+- Studio runtime behavior has been checked when the change touches gameplay, remotes, UI, Workspace, tools, character lifecycle, or player lifecycle.
+- For gameplay or UI changes, the final response includes the Studio flow tested, not just static tool results.
 - New remotes have validation and rate/cooldown thinking.
 - New player state has cleanup on player removal and does not leak connections.
+- Placeholder assets, untested flows, unavailable Studio state, or missing uploaded asset IDs are explicitly listed as remaining risk.
 - The final response lists changed files, checks run, and any remaining risk.
 
 ## Good Codex Requests For This Project
@@ -128,9 +148,14 @@ Follow them before making Roblox Studio, Rojo, or Luau changes.
 - "Create a RemoteEvent under ReplicatedStorage.Remotes and add safe server validation."
 - "Move this prototype Studio script into Rojo source."
 - "Run make check and inspect Studio output for errors."
+- "Polish the first dungeon room until combat, UI feedback, rewards, and failure all feel good in Studio."
 
 ## References
 
+- AGENTS.md standard: https://agents.md/
+- OpenAI Codex AGENTS.md guide: https://developers.openai.com/codex/guides/agents-md
+- Anthropic Claude memory guidance: https://code.claude.com/docs/en/memory
+- GitHub Copilot repository instructions: https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions
 - Roblox security guidance: https://create.roblox.com/docs/scripting/security/security-tactics
 - Roblox remote events/callbacks: https://create.roblox.com/docs/scripting/events/remote
 - Roblox DataStore limits/errors: https://create.roblox.com/docs/cloud-services/data-stores/error-codes-and-limits
