@@ -1,0 +1,18 @@
+.DS_Store
+
+# Generated place/model artifacts
+/build/
+/*.rbxl
+/*.rbxlx
+/*.rbxm
+/*.rbxmx
+
+# Roblox Studio lock files
+/*.rbxlx.lock
+/*.rbxl.lock
+
+# Wally install output. Keep wally.toml and wally.lock tracked.
+/Packages/
+/DevPackages/
+
+sourcemap.json
